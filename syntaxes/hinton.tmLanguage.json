@@ -1,0 +1,341 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"scopeName": "source.ht",
+	"name": "Hinton",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#constants-and-special-vars"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"captures": {
+						"0": {
+							"name": "punctuation.definition.comment.hinton"
+						}
+					},
+					"match": "/\\*\\*/",
+					"name": "comment.block.empty.hinton"
+				},
+				{
+					"include": "#comments-doc-oldschool"
+				},
+				{
+					"include": "#comments-doc"
+				},
+				{
+					"include": "#comments-inline"
+				}
+			]
+		},
+		"comments-doc-oldschool": {
+			"patterns": [
+				{
+					"begin": "/\\*\\*",
+					"end": "\\*/",
+					"name": "comment.block.documentation.hinton",
+					"patterns": [
+						{
+							"include": "#comments-doc-oldschool"
+						},
+						{
+							"include": "#comments-block"
+						},
+						{
+							"include": "#hintondoc"
+						}
+					]
+				}
+			]
+		},
+		"comments-doc": {
+			"patterns": [
+				{
+					"begin": "///",
+					"while": "^\\s*///",
+					"patterns": [
+						{
+							"include": "#hintondoc"
+						}
+					],
+					"name": "comment.block.documentation.hinton"
+				}
+			]
+		},
+		"comments-inline": {
+			"patterns": [
+				{
+					"include": "#comments-block"
+				},
+				{
+					"captures": {
+						"1": {
+							"name": "comment.line.double-slash.hinton"
+						}
+					},
+					"match": "((//).*)$"
+				}
+			]
+		},
+		"comments-block": {
+			"patterns": [
+				{
+					"begin": "/\\*",
+					"end": "\\*/",
+					"name": "comment.block.hinton",
+					"patterns": [
+						{
+							"include": "#comments-block"
+						}
+					]
+				}
+			]
+		},
+		"constants-and-special-vars": {
+			"patterns": [
+				{
+					"match": "(?<!\\$)\\b(true|false|null)\\b(?!\\$)",
+					"name": "constant.language.hinton"
+				},
+				{
+					"match": "(?<!\\$)\\b(self|super)\\b(?!\\$)",
+					"name": "variable.language.hinton"
+				},
+				{
+					"match": "(?<!\\$)\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)\\b(?!\\$)",
+					"name": "constant.numeric.hinton"
+				},
+				{
+					"match": "(?<![a-zA-Z0-9_$])([_$]*[A-Z][a-zA-Z0-9_$]*|bool\\b|num\\b|int\\b|double\\b|dynamic\\b)",
+					"name": "support.class.hinton"
+				},
+				{
+					"match": "([_$]*[a-z][a-zA-Z0-9_$]*)(<|\\(|\\s+=>)",
+					"captures": {
+						"1": {
+							"name": "entity.name.function.hinton"
+						}
+					}
+				}
+			]
+		},
+		"built-in-types": {
+			"patterns": [
+				{
+					"match": "(?<!\\$)\\bN?(Int|Float|String|Dict|Function|Bool|Null|Void|Any)\\b(?!\\$)",
+					"name": "storage.type.primitive.hinton"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"match": "(?<!\\$)\\bas\\b(?!\\$)",
+					"name": "keyword.cast.hinton"
+				},
+				{
+					"match": "(?<!\\$)\\b(try|on|catch|finally|throw)\\b(?!\\$)",
+					"name": "keyword.control.catch-exception.hinton"
+				},
+				{
+					"match": "(?<!\\$)\\b(break|continue|else|for|if|in|return|while)\\b(?!\\$)",
+					"name": "keyword.control.hinton"
+				},
+				{
+					"match": "(?<!\\$)\\b(sync(\\*)?|async(\\*)?|await|yield(\\*)?)\\b(?!\\$)",
+					"name": "keyword.control.hinton"
+				},
+				{
+					"match": "(?<!\\$)\\b(new)\\b(?!\\$)",
+					"name": "keyword.control.new.hinton"
+				},
+				{
+					"match": "(?<!\\$)\\b(abstract|class|enum|extends|implements|get|set|struct|type|gen|func|import|export|from|interface)\\b(?!\\$)",
+					"name": "keyword.declaration.hinton"
+				},
+				{
+					"match": "(?<!\\$)\\b(is\\!?)\\b(?!\\$)",
+					"name": "keyword.operator.hinton"
+				},
+				{
+					"match": "\\?|:",
+					"name": "keyword.operator.ternary.hinton"
+				},
+				{
+					"match": "(<<|>>>?|~|\\^|\\||&)",
+					"name": "keyword.operator.bitwise.hinton"
+				},
+				{
+					"match": "((&|\\^|\\||<<|>>>?)=)",
+					"name": "keyword.operator.assignment.bitwise.hinton"
+				},
+				{
+					"match": "(->)",
+					"name": "keyword.operator.closure.hinton"
+				},
+				{
+					"match": "(==|!=|<=?|>=?)",
+					"name": "keyword.operator.comparison.hinton"
+				},
+				{
+					"match": "(([+*/%-]|\\~)=)",
+					"name": "keyword.operator.assignment.arithmetic.hinton"
+				},
+				{
+					"match": "(=)",
+					"name": "keyword.operator.assignment.hinton"
+				},
+				{
+					"match": "(\\-\\-|\\+\\+)",
+					"name": "keyword.operator.increment-decrement.hinton"
+				},
+				{
+					"match": "(\\-|\\+|\\*|\\/|\\~\\/|%)",
+					"name": "keyword.operator.arithmetic.hinton"
+				},
+				{
+					"match": "(!|&&|\\|\\|)",
+					"name": "keyword.operator.logical.hinton"
+				},
+				{
+					"match": "\\b(not|and|or|xor|equals|instanceof)\\b",
+					"name": "keyword.operator.logical.hinton"
+				},
+				{
+					"match": "(?<!\\$)\\b(static|final|const|private|public|override|optional|let)\\b(?!\\$)",
+					"name": "storage.modifier.hinton"
+				}
+			]
+		},
+		"string-interp": {
+			"patterns": [
+				{
+					"captures": {
+						"2": {
+							"name": "variable.parameter.hinton"
+						},
+						"3": {
+							"name": "variable.parameter.hinton"
+						}
+					},
+					"match": "\\$((\\w+)|\\{([^{}]+)\\})"
+				},
+				{
+					"match": "\\\\.",
+					"name": "constant.character.escape.hinton"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"begin": "(?<!r)\"\"\"",
+					"end": "\"\"\"(?!\")",
+					"name": "string.interpolated.triple.double.hinton",
+					"patterns": [
+						{
+							"include": "#string-interp"
+						}
+					]
+				},
+				{
+					"begin": "(?<!r)'''",
+					"end": "'''(?!')",
+					"name": "string.interpolated.triple.single.hinton",
+					"patterns": [
+						{
+							"include": "#string-interp"
+						}
+					]
+				},
+				{
+					"begin": "r\"\"\"",
+					"end": "\"\"\"(?!\")",
+					"name": "string.quoted.triple.double.hinton"
+				},
+				{
+					"begin": "r'''",
+					"end": "'''(?!')",
+					"name": "string.quoted.triple.single.hinton"
+				},
+				{
+					"begin": "(?<!\\|r)\"",
+					"end": "\"",
+					"name": "string.interpolated.double.hinton",
+					"patterns": [
+						{
+							"match": "\\n",
+							"name": "invalid.string.newline"
+						},
+						{
+							"include": "#string-interp"
+						}
+					]
+				},
+				{
+					"begin": "r\"",
+					"end": "\"",
+					"name": "string.quoted.double.hinton",
+					"patterns": [
+						{
+							"match": "\\n",
+							"name": "invalid.string.newline"
+						}
+					]
+				},
+				{
+					"begin": "(?<!\\|r)'",
+					"end": "'",
+					"name": "string.interpolated.single.hinton",
+					"patterns": [
+						{
+							"match": "\\n",
+							"name": "invalid.string.newline"
+						},
+						{
+							"include": "#string-interp"
+						}
+					]
+				},
+				{
+					"begin": "r'",
+					"end": "'",
+					"name": "string.quoted.single.hinton",
+					"patterns": [
+						{
+							"match": "\\n",
+							"name": "invalid.string.newline"
+						}
+					]
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"match": ",",
+					"name": "punctuation.comma.hinton"
+				},
+				{
+					"match": ";",
+					"name": "punctuation.terminator.hinton"
+				},
+				{
+					"match": "\\.",
+					"name": "punctuation.dot.hinton"
+				}
+			]
+		}
+	}
+}

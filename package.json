@@ -1,0 +1,25 @@
+{
+    "name": "hinton",
+    "displayName": "Hinton",
+    "description": "Syntax highlight for the Hinton programming language.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.56.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "hinton",
+            "aliases": ["Hinton Programming Language", "hinton"],
+            "extensions": [".ht"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "hinton",
+            "scopeName": "source.ht",
+            "path": "./syntaxes/hinton.tmLanguage.json"
+        }]
+    }
+}
